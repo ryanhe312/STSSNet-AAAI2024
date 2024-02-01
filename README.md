@@ -40,7 +40,7 @@ You can install ModelScope by running:
 pip install modelscope
 ```
 
-Then you can load the dataset by running the following code in Python:
+Then you can download the dataset by running the following code in Python:
 
 ```python
 from modelscope.msdatasets import MsDataset
@@ -52,7 +52,7 @@ ds =  MsDataset.load('ryanhe312/STSSNet-AAAI2024', subset_name='Lewis', split='t
 
 Note that the dataset is around 40GB per test scene. It may take a while to download the dataset.
 
-Please modify the path in `dataloaders.py` to your own path before running the code.
+Please modify the path in `dataloaders.py` to your own path before next step.
 
 ## Evaluation
 
@@ -93,7 +93,19 @@ Inference speed is tested on a single RTX 3090 GPU and may vary on different mac
 
 ## Training
 
-We will release the training dataset and generation scripts soon.
+You can download the training dataset by running the following code in Python:
+
+```python
+from modelscope.msdatasets import MsDataset
+ds =  MsDataset.load('ryanhe312/STSSNet-AAAI2024', subset_name='Lewis', split='train')
+ds =  MsDataset.load('ryanhe312/STSSNet-AAAI2024', subset_name='Lewis', split='validation')
+```
+
+It will download two sequence train1 and train2. And you can modify the `subset_name` for different scenes (one of 'Lewis', 'SunTemple' and 'Subway'). Each sequence is around 150GB. It may take a while to download the dataset.
+
+Please modify the path in `dataloaders.py` to your own path, and run `train.py` to train for different scenes. 
+
+Visdom is used for visualization. You can run `python -m visdom.server` to start a visdom server, and then open `http://localhost:8097/` in your browser to see the training process.
 
 ## Acknowledgement
 
